@@ -30,7 +30,7 @@ One thing about **Vision Transformers** are it has weaker inductive biases compa
 Luckily, in this model, we will use a **Vision Transformer** from [Google hosted at HuggingFace](https://huggingface.co/google/vit-base-patch16-224-in21k) pre-trained on the [ImageNet-21k dataset](https://paperswithcode.com/paper/imagenet-21k-pretraining-for-the-masses) (14 million images, 21k classes) with 16x16 patches, 224x224 resolution to bypass that data limitation. We will be fine-tuning this model to our "small" dog breeds dataset of around 20 thousand images from the [Stanford Dogs dataset](http://vision.stanford.edu/aditya86/ImageNetDogs/) imported by Jessica Li into [Kaggle](https://www.kaggle.com/datasets/jessicali9530/stanford-dogs-dataset) to classify dog images into 120 types of dog breeds!
 
 # Model Description
-This model is finetuned using the [Google Vision Transformer (vit-base-patch16-224-in21k)](https://huggingface.co/google/vit-base-patch16-224-in21k) on the [Stanford Dogs dataset in Kaggle](https://www.kaggle.com/datasets/jessicali9530/stanford-dogs-dataset) to classify dog images into 120 dog breeds.
+This model is finetuned using the [Google Vision Transformer (vit-base-patch16-224-in21k)](https://huggingface.co/google/vit-base-patch16-224-in21k) on the [Stanford Dogs dataset in Kaggle](https://www.kaggle.com/datasets/jessicali9530/stanford-dogs-dataset) to classify dog images into 120 types of dog breeds.
 
 # Intended Uses & Limitations
 You can use this finetuned model to classify dog images to 150 dog breeds limited to those that are in the dataset.
