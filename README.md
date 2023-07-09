@@ -37,8 +37,8 @@ You can use this finetuned model to classify dog images to 150 dog breeds limite
 
 # How to Use
 ```python
-from transformers import AutoImageProcesssor, AutoModelForImageClassification
-import Image
+from transformers import AutoImageProcessor, AutoModelForImageClassification
+import PIL
 import requests
 
 url = "https://upload.wikimedia.org/wikipedia/commons/5/55/Beagle_600.jpg"
