@@ -39,7 +39,7 @@ from transformers import AutoImageProcesssor, AutoModelForImageClassification
 import Image
 import requests
 
-url = "https://upload.wikimedia.org/wikipedia/commons/8/8b/Husky_L.jpg"
+url = "https://upload.wikimedia.org/wikipedia/commons/5/55/Beagle_600.jpg"
 image = PIL.Image.open(requests.get(url, stream=True).raw)
 
 image_processor = AutoImageProcesssor.from_pretrained("wesleyacheng/dog-breeds-multiclass-image-classification-with-vit")
