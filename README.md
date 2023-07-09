@@ -4,7 +4,16 @@ metrics:
 - accuracy
 - f1
 pipeline_tag: image-classification
+widget:
+- src: https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Welchcorgipembroke.JPG/1200px-Welchcorgipembroke.JPG
+  example_title: Pembroke Corgi
+- src: https://upload.wikimedia.org/wikipedia/commons/d/df/Shihtzu_%28cropped%29.jpg
+  example_title: Shih Tzu
+- src: https://upload.wikimedia.org/wikipedia/commons/5/55/Beagle_600.jpg
+  example_title: Beagle
 ---
+
+# Model Motivation
 
 Recently, someone asked me if you can classify dog images into their respective dog breeds instead just differentiating from cats vs dogs like my last [notebook](https://www.kaggle.com/code/wesleyacheng/cat-vs-dog-image-classification-with-cnns). I say **YES**!
 
@@ -18,3 +27,42 @@ One thing about **Vision Transformers** are it has weaker inductive biases compa
 
 Luckily, in this model, we will used a **Vision Transformer** from [Google hosted at HuggingFace](https://huggingface.co/google/vit-base-patch16-224-in21k) pre-trained on the [ImageNet-21k dataset](https://paperswithcode.com/paper/imagenet-21k-pretraining-for-the-masses) (14 million images, 21k classes) with 16x16 patches, 224x224 resolution to bypass that data limitation. We will be fine-tuning this model to our "small" dog breeds dataset of around 20 thousand images from the [Stanford Dogs dataset](http://vision.stanford.edu/aditya86/ImageNetDogs/) imported by Jessica Li into [Kaggle](https://www.kaggle.com/datasets/jessicali9530/stanford-dogs-dataset) to classify dog images into 120 types of dog breeds!
 
+# Model Description
+This model is finetuned using the [Google Vision Transformer (vit-base-patch16-224-in21k)](https://huggingface.co/google/vit-base-patch16-224-in21k) on the [Stanford Dogs dataset in Kaggle](https://www.kaggle.com/datasets/jessicali9530/stanford-dogs-dataset) to classify dog images into 150 dog breeds.
+
+# Intended Uses & Limitations
+You can use this finetuned model to classify dog images to 150 dog breeds limited to those that are in the dataset.
+
+# How to Use
+```python
+from transformers import AutoImageProcesssor, AutoModelForImageClassification
+import Image
+import requests
+
+url = "https://upload.wikimedia.org/wikipedia/commons/8/8b/Husky_L.jpg"
+image = PIL.Image.open(requests.get(url, stream=True).raw)
+
+image_processor = AutoImageProcesssor.from_pretrained("wesleyacheng/dog-breeds-multiclass-image-classification-with-vit")
+model = AutoModelForImageClassification.from_pretrained("wesleyacheng/dog-breeds-multiclass-image-classification-with-vit")
+
+inputs = image_processor(images=image, return_tensors="pt")
+
+outputs = model(**inputs)
+logits = outputs.logits
+
+# model predicts one of the 150 Stanford dog breeds classes
+predicted_class_idx = logits.argmax(-1).item()
+print("Predicted class:", model.config.id2label[predicted_class_idx])
+```
+
+# Model Training Metrics
+| Epoch | Top-1 Accuracy |  Top-3 Accuracy | Top-5 Accuracy | Macro F1 |
+|-------|----------------|-----------------|----------------|----------|
+| 1     | 79.8%          | 95.1%           | 97.5%          | 77.2%    |
+| 2     | 83.8%          | 96.7%           | 98.2%          | 81.9%    |
+| 3     | 84.8%          | 96.7%           | 98.3%          | 83.4%    |
+
+# Model Evaluation Metrics
+| Top-1 Accuracy | Top-3 Accuracy  | Top-5 Accuracy | Macro F1 |
+|----------------|-----------------|----------------|----------|
+| 84.0%          | 97.1%           | 98.7%          | 83.0%    |
