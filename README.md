@@ -13,6 +13,8 @@ widget:
   example_title: Beagle
 ---
 
+Model made by notebook first posted in my [Kaggle](https://www.kaggle.com/wesleyacheng/dog-breeds-multiclass-image-classification-w-vit).
+
 # Model Motivation
 
 Recently, someone asked me if you can classify dog images into their respective dog breeds instead just differentiating from cats vs dogs like my last [notebook](https://www.kaggle.com/code/wesleyacheng/cat-vs-dog-image-classification-with-cnns). I say **YES**!
