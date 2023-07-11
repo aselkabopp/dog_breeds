@@ -33,7 +33,7 @@ Luckily, in this model, we will use a **Vision Transformer** from [Google hosted
 This model is finetuned using the [Google Vision Transformer (vit-base-patch16-224-in21k)](https://huggingface.co/google/vit-base-patch16-224-in21k) on the [Stanford Dogs dataset in Kaggle](https://www.kaggle.com/datasets/jessicali9530/stanford-dogs-dataset) to classify dog images into 120 types of dog breeds.
 
 # Intended Uses & Limitations
-You can use this finetuned model to classify dog images to 150 dog breeds limited to those that are in the dataset.
+You can use this finetuned model to classify dog images to 150 dog breeds limited to those dog breeds that are in the dataset or a dog image.
 
 # How to Use
 ```python
