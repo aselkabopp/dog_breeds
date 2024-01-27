@@ -17,7 +17,7 @@ def get_dog_info():
 
 picture = "images.jfif"
 
-breed = cvm.get_predicted_breed(picture)
+breed = cvm.get_predicted_breed(f"dog-breeds/images/{picture}")
 name, age, sex = get_dog_info()
 
 print(name, breed, age, sex)
@@ -29,4 +29,4 @@ data = {"Name" : [name],
         "Sex" : [sex]
         }
 df = pd.DataFrame(data)
-df.to_csv("breeds.csv", index=False)
+df.to_csv("dog-breeds/breeds.csv", index=False)
