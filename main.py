@@ -2,7 +2,7 @@ import computer_vision_model as cvm
 import pandas as pd
 
 def get_dog_info():
-    name = input("What is your dog's name?\n")
+    name = input("What is your dog's name?\n").lower()
     age = int(input("How old is your dog?\n"))
 
     sex = input("Is your dog Male or Female?\n").lower()

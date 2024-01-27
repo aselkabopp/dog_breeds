@@ -1,5 +1,6 @@
 import nltk
 from nltk.chat.util import Chat, reflections
+import pandas as pd
 
 # Define pairs of patterns and responses
 pairs = [
@@ -44,13 +45,24 @@ def chatbot_terminal():
           """)
     print("""Hi, I'm Sparky! Haf-haf! I am not experienced ChatBot. 
           I can provide information about your dog. Feel free to ask!\n
-          If you want to end our conversation please write me \"quit\".""")
+          If you want to end our conversation please write me \"quit\".\n
+          """)
+    name = input("What is your dog's name?\n").lower()
+    breed, age, sex = get_data(name)
+
     while True:
         user_input = input("> ")
         if user_input.lower() == 'quit':
             break
         response = chatbot.respond(user_input)
         print(response)
+
+def get_data(name):
+    df = pd.read_csv("dog-breeds/breeds.csv")
+    breed = df.loc[df['Name'] == name, 'Breed']
+    age = df.loc[df['Name'] == name, 'Age'].iloc[0]
+    sex = df.loc[df['Name'] == name, 'Sex'].iloc[0]
+    return breed, age, sex
 
 # Run the chatbot in the terminal
 if __name__ == "__main__":
