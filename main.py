@@ -13,9 +13,7 @@ def get_dog_info():
         sex = input("Please write one of two options: Male or Female.\n").lower()
     return name, age, sex
 
-# picture = input("Please enter the path to your picture.\n")
-
-picture = "images.jfif"
+picture = input("Please enter the name of your dog's picture in the \"images\" folder.\n")
 
 breed = cvm.get_predicted_breed(f"dog-breeds/images/{picture}")
 name, age, sex = get_dog_info()
