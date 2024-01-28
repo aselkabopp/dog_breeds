@@ -16,7 +16,7 @@ responses = {
     "health_problems": "Common health problems for a {breed} include {problems}.",
     "origin": "{breed} originated from {origin}.",
     "height": "The height range of a {breed} is {height} inches.",
-    "longevity": "The average longevity of a {breed} is {years} years.",
+    "longevity": "The average longevity of a {breed} is {years} years."
 }
 
 # Function to get information about a specific breed
