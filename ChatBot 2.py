@@ -6,7 +6,7 @@ import random
 nltk.download('punkt')
 
 # Load the CSV file
-df = pd.read_csv("dog_breeds_info.csv")
+df = pd.read_csv("dog_breeds/dog_breeds_info.csv")
 
 # Define responses for different questions
 responses = {
