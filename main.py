@@ -1,9 +1,8 @@
 import computer_vision_model as cvm
 import pandas as pd
-
 def get_dog_info():
     name = input("What is your dog's name?\n").lower()
-    age = int(input("How old is your dog?\n"))
+    age = float(input("How old is your dog?\n"))
 
     sex = input("Is your dog Male or Female?\n").lower()
 
@@ -15,7 +14,7 @@ def get_dog_info():
 
 picture = input("Please enter the name of your dog's picture in the \"images\" folder.\n")
 
-breed = cvm.get_predicted_breed(f"dog-breeds/images/{picture}")
+breed = cvm.get_predicted_breed(f"dog_breeds/images/{picture}")
 name, age, sex = get_dog_info()
 
 print(name, breed, age, sex)
@@ -27,4 +26,4 @@ data = {"Name" : [name],
         "Sex" : [sex]
         }
 df = pd.DataFrame(data)
-df.to_csv("dog-breeds/breeds.csv", index=False)
+df.to_csv("dog_breeds/breeds.csv", index=False)

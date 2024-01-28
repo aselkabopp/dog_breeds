@@ -58,7 +58,7 @@ def chatbot_terminal():
         print(response)
 
 def get_data(name):
-    df = pd.read_csv("dog-breeds/breeds.csv")
+    df = pd.read_csv("dog_breeds/breeds.csv")
     breed = df.loc[df['Name'] == name, 'Breed']
     age = df.loc[df['Name'] == name, 'Age'].iloc[0]
     sex = df.loc[df['Name'] == name, 'Sex'].iloc[0]
