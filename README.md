@@ -7,7 +7,7 @@ Náš projekt Štěňátka se dělí do dvou částí:
 
 ---
 # Algoritmus rozpoznávající plemena psů
-Tento algoritmus jsme převzali z Kaggle a dataset plemen psů se nazývá Standfords Dog Dataset. Jak jsme již zmiňovali v naší prezentaci, středem našeho projektu je aplikace, která se dělí do dvou částí, na základě tohoto algoritmu jsme se sestavili první část aplikace.
+Tento algoritmus jsme převzali z Kaggle a dataset plemen psů se nazývá Standfords Dog Dataset. Jak jsme již zmiňovali v naší prezentaci, středem našeho projektu je aplikace, která se dělí do dvou částí, na základě tohoto algoritmu jsme sestavili první část aplikace.
 
 Funkcionalita první části aplikace:
 
