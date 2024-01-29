@@ -1,4 +1,29 @@
+# Štěňátka
+Členové: Thuy Anh Bui, Dilmurat Dautov, Assel Irkenova, Hleb Melnychenko
+
+Náš projekt Štěňátka se dělí do dvou částí:
+- Algoritmus rozpoznávající plemena psů
+- Chatbot
+
 ---
+# Algoritmus rozpoznávající plemena psů
+Tento algoritmus jsme převzali z Kaggle a dataset plemen psů se nazývá Standfords Dog Dataset. Jak jsme již zmiňovali v naší prezentaci, středem našeho projektu je aplikace, která se dělí do dvou částí, na základě tohoto algoritmu jsme se sestavili první část aplikace.
+
+Funkcionalita první části aplikace:
+
+- Uživatel nahraje fotku psa do aplikace;
+- Zadá jméno psa, věk a pohlaví;
+- Aplikace na základě fotky vyhodnotí plemeno psa;
+- Všechny tyto údaje se uloží do aplikace do csv souboru;
+- Csv soubor tedy obsahuje jméno psa, plemeno, věk a pohlaví.
+
+Na základě první části se pak odvíjí druhá část aplikace a tím je chatbot.
+
+---
+K algoritmu autor dodal README file, který přokládáme níže:
+
+Obsahuje popis na základě jakého klasifikačního modelu funguje, návod na použití, základní informace a % přesnosti trénovacích a testovacích dat.
+
 license: mit
 metrics:
 - accuracy
@@ -15,7 +40,8 @@ widget:
 
 Model made by notebook first posted in my [Kaggle](https://www.kaggle.com/wesleyacheng/dog-breeds-multiclass-image-classification-w-vit).
 
-# Model Motivation
+Model Motivation
+-
 
 Recently, someone asked me if you can classify dog images into their respective dog breeds instead just differentiating from cats vs dogs like my last [notebook](https://www.kaggle.com/code/wesleyacheng/cat-vs-dog-image-classification-with-cnns). I say **YES**!
 
@@ -29,13 +55,16 @@ One thing about **Vision Transformers** are it has weaker inductive biases compa
 
 Luckily, in this model, we will use a **Vision Transformer** from [Google hosted at HuggingFace](https://huggingface.co/google/vit-base-patch16-224-in21k) pre-trained on the [ImageNet-21k dataset](https://paperswithcode.com/paper/imagenet-21k-pretraining-for-the-masses) (14 million images, 21k classes) with 16x16 patches, 224x224 resolution to bypass that data limitation. We will be fine-tuning this model to our "small" dog breeds dataset of around 20 thousand images from the [Stanford Dogs dataset](http://vision.stanford.edu/aditya86/ImageNetDogs/) imported by Jessica Li into [Kaggle](https://www.kaggle.com/datasets/jessicali9530/stanford-dogs-dataset) to classify dog images into 120 types of dog breeds!
 
-# Model Description
+Model Description
+-
 This model is finetuned using the [Google Vision Transformer (vit-base-patch16-224-in21k)](https://huggingface.co/google/vit-base-patch16-224-in21k) on the [Stanford Dogs dataset in Kaggle](https://www.kaggle.com/datasets/jessicali9530/stanford-dogs-dataset) to classify dog images into 120 types of dog breeds.
 
-# Intended Uses & Limitations
+Intended Uses & Limitations
+-
 You can use this finetuned model to classify images of dogs only and dog breeds that are in the dataset.
 
-# How to Use
+How to Use
+-
 ```python
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 import PIL
@@ -57,14 +86,19 @@ predicted_class_idx = logits.argmax(-1).item()
 print("Predicted class:", model.config.id2label[predicted_class_idx])
 ```
 
-# Model Training Metrics
+Model Training Metrics
+-
 | Epoch | Top-1 Accuracy |  Top-3 Accuracy | Top-5 Accuracy | Macro F1 |
 |-------|----------------|-----------------|----------------|----------|
 | 1     | 79.8%          | 95.1%           | 97.5%          | 77.2%    |
 | 2     | 83.8%          | 96.7%           | 98.2%          | 81.9%    |
 | 3     | 84.8%          | 96.7%           | 98.3%          | 83.4%    |
 
-# Model Evaluation Metrics
+Model Evaluation Metrics
+-
 | Top-1 Accuracy | Top-3 Accuracy  | Top-5 Accuracy | Macro F1 |
 |----------------|-----------------|----------------|----------|
 | 84.0%          | 97.1%           | 98.7%          | 83.0%    |
+
+# Chatbot
+xyxyxyxy DOPLNIT!!
