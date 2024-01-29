@@ -5,20 +5,16 @@ import pandas as pd
 # Define pairs of patterns and responses
 pairs = [
     [
-        r"What is the behavior of a (.*)?",
-        ["The behavior of a %1 varies depending on its breed. Can you specify the breed you're interested in?",]
-    ],
-    [
-        r"The behavior of a (.*) is (.*)",
-        ["The behavior of a %1 is %2.",]
-    ],
-    [
-        r"What are common behaviors of a (.*)?",
-        ["Common behaviors of a %1 include %2, %3, and %4.",]
-    ],
-    [
         r"What are typical characteristics of a (.*)?",
         ["Typical characteristics of a %1 include %2, %3, and %4.",]
+    ],
+    [
+        r"What is (.*)'s common color of eyes?",
+        ["The common color of eyes for a %1 is %2.",]
+    ],
+    [
+        r"What is (.*)'s common health problems?",
+        ["The common health problems for a %1 are %2.",]
     ],
     [
         r"(.*) created ?",
