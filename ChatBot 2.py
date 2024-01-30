@@ -1,6 +1,7 @@
 import nltk
 import pandas as pd
 import random
+import re
 
 # Download NLTK resources
 nltk.download('punkt')
@@ -54,6 +55,36 @@ def generate_response(question, breed):
     )
     return response
 
+def split_question(question):
+    tokens = re.findall(r'\b\w+\b|\S', question)
+    lowercase_tokens = [token.lower() for token in tokens]
+    return lowercase_tokens
+
+
+def find_key_question(lowercase_tokens):
+    question = ""
+    for token in lowercase_tokens:
+        for response in responses:
+            if token == response:
+                question = response
+    return question        
+
+
+def find_breed(lowercase_tokens):
+    result_breed = ""
+    breeds = df.Breed.tolist()
+    for token in lowercase_tokens:
+        for breed in breeds:
+            if token == breed.lower():
+                result_breed = breed
+    return result_breed   
+
+def get_breed(name):
+    df = pd.read_csv("dog_breeds/breeds.csv")
+    breed = df.loc[df['Name'] == name, 'Breed']
+    return breed
+
+
 # Main function to handle the conversation
 def chatbot():
     print("Welcome to the Dog Breed Chatbot!")
@@ -67,16 +98,21 @@ def chatbot():
             print("Chatbot: Goodbye!")
             break
         
+        splitted_lowercase_tokens = split_question(user_input)
+        question = find_key_question(splitted_lowercase_tokens)
+        breed = find_breed(splitted_lowercase_tokens)
         # Check if the user input matches any question pattern
-        matched_question = None
-        for question in responses:
-            if question in user_input:
-                matched_question = question
-                break
         
-        if matched_question:
-            breed = user_input.replace(matched_question, "").strip()
-            response = generate_response(matched_question, breed)
+        # matched_question = None
+        # for question in responses:
+        #     if question in user_input:
+        #         matched_question = question
+        #         break
+        
+        if question:
+            # breed = user_input.replace(matched_question, "").strip()
+
+            response = generate_response(question, breed)
             print("Chatbot:", response)
         else:
             print("Chatbot: I'm sorry, I didn't understand that. Can you please rephrase your question?")
