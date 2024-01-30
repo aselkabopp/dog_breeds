@@ -1,5 +1,5 @@
 # Štěňátka
-Členové: Thuy Anh Bui, Dilmurat Dautov, Assel Irkenova, Hleb Melnychenko
+Členové: Thuy Anh Bui, Dilmurat Dautov, Assel Irkenova, Hlib Melnychenko
 
 Náš projekt Štěňátka se dělí do dvou částí:
 - Algoritmus rozpoznávající plemena psů
