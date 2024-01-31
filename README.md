@@ -101,4 +101,19 @@ Model Evaluation Metrics
 | 84.0%          | 97.1%           | 98.7%          | 83.0%    |
 
 # Chatbot
-Druhá část naší aplikace je chatbot, který nese název
+Druhá část naší aplikace je chatbot, který dokáže odpovědět na základní otázky ohledně plemena mazlíčka. Odpovědi vychází z dokumentu "dog_breeds_info.csv". Mezi informace, které může chatbot poskytnout se pobyhují ohledně:
+
+- Country of Origin
+- Fur
+- Color	Height (in)
+- Color of Eyes
+- Longevity (yrs)
+- Character Traits
+- Common Health Problems
+
+Funkcionalita chatbota
+-
+
+xyxyxyx DOPLNIT
+
+
