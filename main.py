@@ -43,11 +43,6 @@ data = {"Name" : [name],
         "Age" : [age], 
         "Sex" : [sex]
         }
-# capitalized_data = {key: value.capitalize() if isinstance(value, str) else value for key, value in data.items()} # capitalizing value of every key in dict
-
-# for key in data:
-#     key = key.capitalize()
-#     print(key, data[key])
 
 df = pd.DataFrame(data)
 df.to_csv("dog_breeds/dogs_database.csv", index=False)
