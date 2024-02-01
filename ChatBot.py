@@ -1,6 +1,6 @@
 import nltk
+from nltk.tokenize import word_tokenize
 import pandas as pd
-import random
 import re
 import os
 
@@ -95,16 +95,6 @@ def find_breed(user_text):
     else:
         return "Breed or dog's name wasn't found"
 
-# def find_breed(lowercase_tokens):
-#     breed = ""
-#     registered_dogs_names = registered_dogs.Name.tolist()
-#     for token in lowercase_tokens:
-#         for name in registered_dogs_names:
-#             if token == name.lower():
-#                 #The name is found 
-#                 breed = get_breed(name.lower())
-#     return breed   
-
 def get_breed(name):
     row = registered_dogs[registered_dogs.Name == name]
     if not row.empty:
@@ -136,7 +126,7 @@ def chatbot():
             print("Chatbot: Goodbye!")
             break
         
-        splitted_lowercase_tokens = split_question(user_input)
+        splitted_lowercase_tokens = word_tokenize(user_input)
         question = find_key_question(splitted_lowercase_tokens)
         breed = find_breed(user_input)
 
