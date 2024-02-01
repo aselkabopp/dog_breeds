@@ -1,5 +1,4 @@
 import nltk
-from nltk.tokenize import word_tokenize
 import pandas as pd
 import random
 import re
@@ -57,8 +56,7 @@ def generate_response(question, breed):
     return response
 
 def split_question(question):
-    tokens = word_tokenize(question)
-    # tokens = re.findall(r'\b\w+\b|\S', question)
+    tokens = re.findall(r'\b\w+\b|\S', question)
     lowercase_tokens = [token.lower() for token in tokens]
     return lowercase_tokens
 
@@ -76,30 +74,14 @@ def find_key_question(lowercase_tokens):
 # compare words in user question with breed of the dog 
 # if they are equal - return this breed 
 # FINDING BREED IN QUESTION
-def find_breed(lowercase_tokens):
-    result_breed = ""
-    breeds = df.Breed.tolist()
-    
-    # Combine consecutive tokens to handle multi-word breed names
-    combined_tokens = []
-    current_token = ""
+def find_name(lowercase_tokens):
+    result_name = ""
+    names = df.Name.tolist()
     for token in lowercase_tokens:
-        if token in breeds:
-            current_token = token
-            result_breed = current_token
-        # If we have not find similarity in breed list and token and current_token is not empty
-        elif current_token:
-            current_token += " " + token
-        else:
-            combined_tokens.append(token)
-
-    # Check for the combined token in the list of breeds
-    for token in combined_tokens:
-        if token in breeds:
-            result_breed = token
-            break
-    
-    return result_breed
+        for name in names:
+            if token == name.lower():
+                result_name = name
+    return result_name
 
 # refering to the breeds.csv we use the name of the dog to return its breed 
 def get_breed(name):
@@ -128,7 +110,7 @@ def chatbot():
         
         splitted_lowercase_tokens = split_question(user_input)
         question = find_key_question(splitted_lowercase_tokens)
-        breed = find_breed(splitted_lowercase_tokens)
+        name = find_name(splitted_lowercase_tokens)
         # Check if the user input matches any question pattern
         
         # matched_question = None
@@ -137,10 +119,10 @@ def chatbot():
         #         matched_question = question
         #         break
         
-        if question:
+        if question and name:
             # breed = user_input.replace(matched_question, "").strip()
 
-            response = generate_response(question, breed)
+            response = generate_response(question, name)
             print("Chatbot:", response)
         else:
             print("Chatbot: I'm sorry, I didn't understand that. Can you please rephrase your question?")
