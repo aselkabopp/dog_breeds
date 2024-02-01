@@ -8,8 +8,8 @@ import os
 nltk.download('punkt')
 
 # Source files
-breeds_information = pd.read_csv("dog_breeds_info_prepared.csv")
-registered_dogs = pd.read_csv("dogs_database.csv")
+breeds_information = pd.read_csv("dog_breeds/dog_breeds_info_prepared.csv")
+registered_dogs = pd.read_csv("dog_breeds/dogs_database.csv")
 
 # Define responses for different questions
 responses = {
@@ -21,7 +21,6 @@ responses = {
     "height": "The height range of a {breed} is {height} inches.",
     "longevity": "The average longevity of a {breed} is {years} years."
 }
-
 
 def clear_terminal():
     # Clear the terminal screen
