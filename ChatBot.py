@@ -2,6 +2,7 @@ import nltk
 import pandas as pd
 import random
 import re
+import os
 
 # Download NLTK resources
 nltk.download('punkt')
@@ -20,6 +21,11 @@ responses = {
     "height": "The height range of a {breed} is {height} inches.",
     "longevity": "The average longevity of a {breed} is {years} years."
 }
+
+
+def clear_terminal():
+    # Clear the terminal screen
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 # Function to get information about a specific breed
 def get_breed_info(breed):
@@ -108,6 +114,17 @@ def get_breed(name):
 
 # Main function to handle the conversation
 def chatbot():
+    clear_terminal()
+    
+    print("""
+        ███████████████████████████████
+        █───█────█────█────█─██─█──█──█
+        █─███─██─█─██─█─██─█─█─███───██
+        █───█────█────█────█──█████─███
+        ███─█─████─██─█─█─██─█─████─███
+        █───█─████─██─█─█─██─██─███─███
+        ███████████████████████████─███
+    """)
     print("Welcome to the Dog Breed Chatbot!")
     print("I can provide information about different dog breeds.")
     print("You can ask me about behavior, traits, color of eyes, health problems, origin, height, and longevity of a breed.")
