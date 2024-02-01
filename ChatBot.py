@@ -61,11 +61,6 @@ def generate_response(question, breed):
     )
     return response
 
-def split_question(question):
-    tokens = re.findall(r'\b\w+\b|\S', question)
-    lowercase_tokens = [token.lower() for token in tokens]
-    return lowercase_tokens
-
 
 def find_key_question(lowercase_tokens):
     question = ""
