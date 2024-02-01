@@ -76,30 +76,13 @@ def find_key_question(lowercase_tokens):
 # compare words in user question with breed of the dog 
 # if they are equal - return this breed 
 # FINDING BREED IN QUESTION
-def find_breed(lowercase_tokens):
-    result_breed = ""
-    breeds = df.Breed.tolist()
+def get_breed_info(breed):
+    row = df[df['Breed'] == breed]
+    if row.empty:
+        return None
+    return row.iloc[0]
     
-    # Combine consecutive tokens to handle multi-word breed names
-    combined_tokens = []
-    current_token = ""
-    for token in lowercase_tokens:
-        if token in breeds:
-            current_token = token
-            result_breed = current_token
-        # If we have not find similarity in breed list and token and current_token is not empty
-        elif current_token:
-            current_token += " " + token
-        else:
-            combined_tokens.append(token)
-
-    # Check for the combined token in the list of breeds
-    for token in combined_tokens:
-        if token in breeds:
-            result_breed = token
-            break
     
-    return result_breed
 
 # refering to the breeds.csv we use the name of the dog to return its breed 
 def get_breed(name):

@@ -50,7 +50,4 @@ data = {"Name" : [name],
 #     print(key, data[key])
 
 df = pd.DataFrame(data)
-df.to_csv("dog_breeds/breeds.csv", index=False)
-
-
-
+df.to_csv("dog_breeds/dogs_database.csv", index=False)

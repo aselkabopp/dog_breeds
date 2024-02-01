@@ -20,9 +20,9 @@ Funkcionalita první části aplikace:
 Na základě první části se pak odvíjí druhá část aplikace a tím je chatbot.
 
 ---
-K algoritmu autor dodal README file, který přokládáme níže:
+K algoritmu autor dodal README file, který přikládáme níže:
 
-Obsahuje popis na základě jakého klasifikačního modelu funguje, návod na použití, základní informace a % přesnosti trénovacích a testovacích dat.
+Obsahuje popis na základě jakého klasifikačního modelu algoritmus funguje, návod na použití, základní informace a % přesnosti trénovacích a testovacích dat.
 
 license: mit
 metrics:
@@ -101,4 +101,19 @@ Model Evaluation Metrics
 | 84.0%          | 97.1%           | 98.7%          | 83.0%    |
 
 # Chatbot
-xyxyxyxy DOPLNIT!!
+Druhá část naší aplikace je chatbot, který dokáže odpovědět na základní otázky ohledně plemena mazlíčka. Odpovědi vychází z dokumentu "dog_breeds_info.csv". Mezi informace, které může chatbot poskytnout se pobyhují ohledně:
+
+- Country of Origin
+- Fur
+- Color	Height (in)
+- Color of Eyes
+- Longevity (yrs)
+- Character Traits
+- Common Health Problems
+
+Funkcionalita chatbota
+-
+
+xyxyxyx DOPLNIT
+
+

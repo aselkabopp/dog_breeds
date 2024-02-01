@@ -1,66 +1,116 @@
 import nltk
-from nltk.chat.util import Chat, reflections
 import pandas as pd
+import random
+import re
 
-# Define pairs of patterns and responses
-pairs = [
-    [
-        r"What are typical characteristics of a (.*)?",
-        ["Typical characteristics of a %1 include %2, %3, and %4.",]
-    ],
-    [
-        r"What is (.*)'s common color of eyes?",
-        ["The common color of eyes for a %1 is %2.",]
-    ],
-    [
-        r"What is (.*)'s common health problems?",
-        ["The common health problems for a %1 are %2.",]
-    ],
-    [
-        r"(.*) created ?",
-        ["I was created by OpenAI using Python's NLTK library.",]
-    ],
-    [
-        r"quit",
-        ["Bye, take care. See you soon!", "It was nice talking to you. Goodbye!"]
-    ],
-]
+# Download NLTK resources
+nltk.download('punkt')
 
-# Create a ChatBot with the defined pairs
-chatbot = Chat(pairs, reflections)
+# Source files
+breeds_information = pd.read_csv("dog_breeds/dog_breeds_info_prepared.csv")
+registered_dogs = pd.read_csv("dog_breeds/dogs_database.csv")
 
-# Start the conversation loop
-def chatbot_terminal():
-    print("""
-            ╔══╗╔═══╗╔══╗╔═══╗╔╗╔══╗╔╗╔╗───╔══╗╔╗╔╗╔══╗╔════╗╔══╗─╔══╗╔════╗
-            ║╔═╝║╔═╗║║╔╗║║╔═╗║║║║╔═╝║║║║───║╔═╝║║║║║╔╗║╚═╗╔═╝║╔╗║─║╔╗║╚═╗╔═╝
-            ║╚═╗║╚═╝║║╚╝║║╚═╝║║╚╝║──║╚╝║───║║──║╚╝║║╚╝║──║║──║╚╝╚╗║║║║──║║──
-            ╚═╗║║╔══╝║╔╗║║╔╗╔╝║╔╗║──╚═╗║───║║──║╔╗║║╔╗║──║║──║╔═╗║║║║║──║║──
-            ╔═╝║║║───║║║║║║║║─║║║╚═╗─╔╝║───║╚═╗║║║║║║║║──║║──║╚═╝║║╚╝║──║║──
-            ╚══╝╚╝───╚╝╚╝╚╝╚╝─╚╝╚══╝─╚═╝───╚══╝╚╝╚╝╚╝╚╝──╚╝──╚═══╝╚══╝──╚╝──
-          """)
-    print("""Hi, I'm Sparky! Haf-haf! I am not experienced ChatBot. 
-          I can provide information about your dog. Feel free to ask!\n
-          If you want to end our conversation please write me \"quit\".\n
-          """)
-    name = input("What is your dog's name?\n").lower()
-    breed, age, sex = get_data(name)
+# Define responses for different questions
+responses = {
+    "behavior": "The behavior of a {breed} includes {traits}.",
+    "traits": "Typical traits of a {breed} are {traits}.",
+    "color_of_eyes": "The common color of eyes for a {breed} is {color}.",
+    "health_problems": "Common health problems for a {breed} include {problems}.",
+    "origin": "{breed} originated from {origin}.",
+    "height": "The height range of a {breed} is {height} inches.",
+    "longevity": "The average longevity of a {breed} is {years} years."
+}
 
+# Function to get information about a specific breed
+def get_breed_info(breed):
+    row = breeds_information[breeds_information['Breed'] == breed]
+    if row.empty:
+        return None
+    return row.iloc[0]
+
+# Function to generate responses based on user input
+def generate_response(question, breed):
+    info = get_breed_info(breed)
+    if info is None:
+        return "Sorry, I don't have information about that breed."
+    
+    traits = info['Character Traits'].split(', ')
+    color_of_eyes = info['Color of Eyes']
+    health_problems = info['Common Health Problems']
+    origin = info['Country of Origin']
+    height = info['Height (in)']
+    longevity = info['Longevity (yrs)']
+    
+    response_template = responses.get(question)
+    if not response_template:
+        return "I'm not sure how to answer that question."
+    
+    response = response_template.format(
+        breed=breed,
+        traits=', '.join(traits),
+        color=color_of_eyes,
+        problems=health_problems,
+        origin=origin,
+        height=height,
+        years=longevity
+    )
+    return response
+
+def split_question(question):
+    tokens = re.findall(r'\b\w+\b|\S', question)
+    lowercase_tokens = [token.lower() for token in tokens]
+    return lowercase_tokens
+
+
+def find_key_question(lowercase_tokens):
+    question = ""
+    for token in lowercase_tokens:
+        for response in responses:
+            if token == response:
+                question = response
+    return question        
+
+
+def find_breed(lowercase_tokens):
+    breed = ""
+    registered_dogs_names = registered_dogs.Name.tolist()
+    for token in lowercase_tokens:
+        for name in registered_dogs_names:
+            if token == name.lower():
+                #The name is found 
+                breed = get_breed(name.lower())
+    return breed   
+
+def get_breed(name):
+    row = registered_dogs[registered_dogs.Name == name]
+    if not row.empty:
+        return row['Breed'].values[0]
+    else:
+        return "Name not found"
+
+# Main function to handle the conversation
+def chatbot():
+    print("Welcome to the Dog Breed Chatbot!")
+    print("I can provide information about different dog breeds.")
+    print("You can ask me about behavior, traits, color of eyes, health problems, origin, height, and longevity of a breed.")
+    print("Type 'quit' to exit the chatbot.\n")
+    
     while True:
-        user_input = input("> ")
-        if user_input.lower() == 'quit':
+        user_input = input("You: ").strip().lower()
+        if user_input == 'quit':
+            print("Chatbot: Goodbye!")
             break
-        response = chatbot.respond(user_input)
-        print(response)
+        
+        splitted_lowercase_tokens = split_question(user_input)
+        question = find_key_question(splitted_lowercase_tokens)
+        breed = find_breed(splitted_lowercase_tokens)
 
-def get_data(name):
-    df = pd.read_csv("dog_breeds/breeds.csv")
-    breed = df.loc[df['Name'] == name, 'Breed']
-    age = df.loc[df['Name'] == name, 'Age'].iloc[0]
-    sex = df.loc[df['Name'] == name, 'Sex'].iloc[0]
-    return breed, age, sex
+        if question:
+            response = generate_response(question, breed)
+            print("Chatbot:", response)
+        else:
+            print("Chatbot: I'm sorry, I didn't understand that. Can you please rephrase your question?")
 
-# Run the chatbot in the terminal
+# Run the chatbot
 if __name__ == "__main__":
-    nltk.download('punkt')
-    chatbot_terminal()
+    chatbot()
