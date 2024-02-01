@@ -7,8 +7,8 @@ import re
 nltk.download('punkt')
 
 # Source files
-breeds_information = pd.read_csv("dog_breeds/dog_breeds_info_prepared.csv")
-registered_dogs = pd.read_csv("dog_breeds/dogs_database.csv")
+breeds_information = pd.read_csv("dog_breeds_info_prepared.csv")
+registered_dogs = pd.read_csv("dogs_database.csv")
 
 # Define responses for different questions
 responses = {
@@ -70,16 +70,34 @@ def find_key_question(lowercase_tokens):
                 question = response
     return question        
 
-
-def find_breed(lowercase_tokens):
-    breed = ""
+def find_breed(user_text):
+    found_breed = ""
+    
+    dog_breeds = breeds_information.Breed.to_list()
     registered_dogs_names = registered_dogs.Name.tolist()
-    for token in lowercase_tokens:
-        for name in registered_dogs_names:
-            if token == name.lower():
-                #The name is found 
-                breed = get_breed(name.lower())
-    return breed   
+
+    for breed in dog_breeds:
+        if breed.lower() in user_text.lower():
+            found_breed = breed
+
+    for name in registered_dogs_names:
+        if name.lower() in user_text.lower():
+            found_breed = get_breed(name.lower())
+    
+    if found_breed != "":
+        return found_breed
+    else:
+        return "Breed or dog's name wasn't found"
+
+# def find_breed(lowercase_tokens):
+#     breed = ""
+#     registered_dogs_names = registered_dogs.Name.tolist()
+#     for token in lowercase_tokens:
+#         for name in registered_dogs_names:
+#             if token == name.lower():
+#                 #The name is found 
+#                 breed = get_breed(name.lower())
+#     return breed   
 
 def get_breed(name):
     row = registered_dogs[registered_dogs.Name == name]
@@ -103,7 +121,7 @@ def chatbot():
         
         splitted_lowercase_tokens = split_question(user_input)
         question = find_key_question(splitted_lowercase_tokens)
-        breed = find_breed(splitted_lowercase_tokens)
+        breed = find_breed(user_input)
 
         if question:
             response = generate_response(question, breed)
