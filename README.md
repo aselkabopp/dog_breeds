@@ -7,14 +7,14 @@ Náš projekt Štěňátka se dělí do dvou částí:
 
 ---
 # Algoritmus rozpoznávající plemena psů
-Tento algoritmus jsme převzali z Kaggle a dataset plemen psů se nazývá Standfords Dog Dataset. Jak jsme již zmiňovali v naší prezentaci, středem našeho projektu je aplikace, která se dělí do dvou částí, na základě tohoto algoritmu jsme sestavili první část aplikace.
+Tento algoritmus jsme převzali z Hugging Face a dataset plemen psů Standford Dogs Dataset jsme převzali z Kaggle. Jak jsme již zmiňovali v naší prezentaci, středem našeho projektu je aplikace, která se dělí do dvou částí, na základě tohoto algoritmu jsme sestavili první část aplikace.
 
 Funkcionalita první části aplikace:
 
 - Uživatel nahraje fotku psa do aplikace;
 - Zadá jméno psa, věk a pohlaví;
 - Aplikace na základě fotky vyhodnotí plemeno psa;
-- Všechny tyto údaje se uloží do aplikace do csv souboru;
+- Všechny tyto údaje se uloží do aplikace do dogs_database.csv souboru;
 - Csv soubor tedy obsahuje jméno psa, plemeno, věk a pohlaví.
 
 Na základě první části se pak odvíjí druhá část aplikace a tím je chatbot.
@@ -100,8 +100,8 @@ Model Evaluation Metrics
 |----------------|-----------------|----------------|----------|
 | 84.0%          | 97.1%           | 98.7%          | 83.0%    |
 
-# Chatbot
-Druhá část naší aplikace je chatbot, který dokáže odpovědět na základní otázky ohledně plemena mazlíčka. Odpovědi vychází z dokumentu "dog_breeds_info.csv". Mezi informace, které může chatbot poskytnout se pobyhují ohledně:
+# Chatbot Sparky
+Druhá část naší aplikace je chatbot, který jsme pojmenovali Sparky. Sparky dokáže odpovědět na základní otázky ohledně plemena mazlíčka. Odpovědi vychází z datasetu "dog_breeds_info_prepared.csv", který jsme převzali z [Kaggle](https://www.kaggle.com/datasets/marshuu/dog-breeds). Mezi informace, které může chatbot poskytnout se pobyhují ohledně:
 
 - Country of Origin
 - Fur
@@ -114,6 +114,8 @@ Druhá část naší aplikace je chatbot, který dokáže odpovědět na základ
 Funkcionalita chatbota
 -
 
-xyxyxyx DOPLNIT
-
+- Uživatel zadá do konzole dotaz na jeden z poskytovaných informací.
+- Uživatel může při dotazu zadat buď jméno anebo plemeno mazlíčka (např. "What is kelly's common traits?" anebo "What is german sheperd common traits?")
+- Chatbot vrátí odpověď, a pokud nebude dokázat zodpovědět na otázku vrátí odpověď podle příslušného problému. Pokud se plemeno nenajde v seznamu, chatbot odpoví "Sorry, I don't have information about that breed."; a pokud se nenajde příslušná informace tak chatbot odpoví "I'm not sure how to answer that question.".
+- Pokud už uživatel nechce komunikovat s chatbotem, napíše do konzole "quit".
 
